@@ -1,6 +1,6 @@
 package config
 
-import(
+import (
 	"log"
 	"os"
 	"strconv"
@@ -12,6 +12,10 @@ func GetEnv() string {
 
 func GetDataSourceURL() string {
 	return getEnvironmentValue("DATA_SOURCE_URL")
+}
+
+func GetPaymentServiceURL() string {
+	return getEnvironmentValue("PAYMENT_SERVICE_URL")
 }
 
 func GetApplicationPort() int {
