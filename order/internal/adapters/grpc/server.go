@@ -3,8 +3,9 @@ package grpc
 import (
 	"context"
 	"fmt"
-	"net"
 	"log"
+	"net"
+
 	"github.com/islanpedro01/microservices-proto/golang/order"
 	"github.com/islanpedro01/microservices/order/config"
 	"github.com/islanpedro01/microservices/order/internal/application/core/domain"
@@ -33,7 +34,7 @@ func (a Adapter) Create(ctx context.Context, request *order.CreateOrderRequest) 
 type Adapter struct {
 	api ports.APIPort
 	port int
-	order.UnimplementedOrderServiceServer
+	order.UnimplementedOrderServer
 }
 
 func NewAdapter (api ports.APIPort, port int) *Adapter {
@@ -47,7 +48,7 @@ func (a Adapter) Run() {
 		log.Fatalf("Failed to listen on port %d, error: %v", a.port, err)
 }
 grpcServer := grpc.NewServer()
-	order.RegisterOrderServiceServer(grpcServer, a)
+	order.RegisterOrderServer(grpcServer, a)
 	if config.GetEnv() == "development" {
 		reflection.Register(grpcServer)
 	}
