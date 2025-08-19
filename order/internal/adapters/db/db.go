@@ -80,3 +80,14 @@ func (a *Adapter) Save(order *domain.Order) error {
 	}
 	return res.Error
 }
+
+func (a *Adapter) Update(order *domain.Order) error {
+    orderModel := Order{
+        Model:      gorm.Model{ID: uint(order.ID)},
+        CustomerID: order.CustomerID,
+        Status:     order.Status,
+    }
+
+    res := a.db.Model(&orderModel).Updates(Order{Status: order.Status})
+    return res.Error
+}

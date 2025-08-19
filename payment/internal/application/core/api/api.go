@@ -2,8 +2,6 @@ package api
 
 import (
 	"context"
-	"log"
-
 	"github.com/huseyinbabal/microservices/payment/internal/application/core/domain"
 	"github.com/huseyinbabal/microservices/payment/internal/ports"
 	"google.golang.org/grpc/codes"
