@@ -1,7 +1,11 @@
 package ports
 
-import "github.com/islanpedro01/microservices/order/internal/application/core/domain"
+import (
+	"context"
+
+	"github.com/islanpedro01/microservices/order/internal/application/core/domain"
+)
 
 type PaymentPort interface {
-	Charge(order *domain.Order) error
+	Charge(ctx context.Context, order *domain.Order) error
 }
