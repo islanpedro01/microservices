@@ -36,7 +36,7 @@ func (a *Adapter) Charge(ctx context.Context, order *domain.Order) error {
 	_, err := a.payment.Create(ctx, &payment.CreatePaymentRequest{
 		UserId: order.CustomerID,
 		OrderId: order.ID,
-		TotalPrice: order.TotalPrice(),
+		TotalPrice: order.TotalAmount(),
 		}) 
 		return err
 }
