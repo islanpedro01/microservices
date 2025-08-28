@@ -23,7 +23,7 @@ func (a Adapter) Create(ctx context.Context, request *order.CreateOrderRequest) 
 			Quantity:    orderItem.Quantity,
 		})
 	}
-	newOrder := domain.NewOrder(int64(request.CostumerId), orderItems)
+	newOrder := domain.NewOrder(int64(request.CostumerId), orderItems, request.TotalPrice)
 	result, err := a.api.PlaceOrder(newOrder)
 	if err != nil {
 		return nil, err

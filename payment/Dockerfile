@@ -3,7 +3,7 @@ WORKDIR /protos
 COPY ../microservices-proto .
 WORKDIR /usr/src/app
 COPY . .
-RUN cd ./payment && \
+RUN cd ./microservices/payment && \
     go mod edit -replace=github.com/islanpedro01/microservices-proto/golang=/protos && \
     CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /payment ./cmd/main.go
 

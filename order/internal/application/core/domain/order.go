@@ -24,7 +24,7 @@ func (o *Order) TotalPrice() float32 {
 	return totalPrice
 }
 
-func NewOrder(customerId int64, orderItems []OrderItem) Order {
+func NewOrder(customerId int64, orderItems []OrderItem, totalPrice float32) Order {
 	return Order{
 		CreatedAt:  time.Now().Unix(),
 		Status:     "Pending",
