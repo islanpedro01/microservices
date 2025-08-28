@@ -13,6 +13,7 @@ type Order struct {
 	CustomerID int64
 	Status string
 	OrderItems []OrderItem
+	TotalPrice float32
 }
 
 type OrderItem struct {
@@ -80,9 +81,10 @@ func (a *Adapter) Save(order *domain.Order) error {
 		CustomerID: order.CustomerID,
 		Status:     order.Status,
 		OrderItems: orderItems,
+		TotalPrice: order.TotalPrice,
 	}
 	res := a.db.Create(&orderModel)
-	if res.Error != nil {
+	if res.Error == nil {
 		order.ID = int64(orderModel.ID)
 	}
 	return res.Error

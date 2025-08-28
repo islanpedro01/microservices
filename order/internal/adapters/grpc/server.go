@@ -15,6 +15,10 @@ import (
 )
 
 func (a Adapter) Create(ctx context.Context, request *order.CreateOrderRequest) (*order.CreateOrderResponse, error){
+
+	log.Printf("DEBUG: Requisição gRPC recebida: %+v", request)
+    log.Printf("DEBUG: Número de itens na requisição: %d", len(request.OrderItems))
+
 	var orderItems []domain.OrderItem
 	for _, orderItem := range request.OrderItems {
 		orderItems = append(orderItems, domain.OrderItem{
