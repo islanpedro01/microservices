@@ -23,6 +23,13 @@ type OrderItem struct {
 	OrderID uint
 }
 
+type Product struct {
+    gorm.Model
+    ProductCode string `gorm:"unique"`
+    Name        string
+    UnitPrice   float32
+}
+
 type Adapter struct {
 	db *gorm.DB
 }
@@ -32,7 +39,7 @@ func NewAdapter(dataSourceUrl string) (*Adapter, error) {
 	if openErr != nil {
 		return nil, fmt.Errorf("db connection error: %v", openErr)
 	}
-	err := db.AutoMigrate(&Order{}, &OrderItem{})
+	err := db.AutoMigrate(&Order{}, &OrderItem{}, &Product{})
 	if err != nil {
 		return nil, fmt.Errorf("db migration error: %v", err)
 	}
@@ -90,4 +97,22 @@ func (a *Adapter) Update(order *domain.Order) error {
 
     res := a.db.Model(&orderModel).Updates(Order{Status: order.Status})
     return res.Error
+}
+
+func (a *Adapter) GetProductsByCodes(codes []string) ([]domain.Product, error) {
+    var productEntities []Product
+    res := a.db.Where("product_code IN ?", codes).Find(&productEntities)
+    if res.Error != nil {
+        return nil, res.Error
+    }
+
+    var products []domain.Product
+    for _, p := range productEntities {
+        products = append(products, domain.Product{
+            ProductCode: p.ProductCode,
+            Name:        p.Name,
+            UnitPrice:   p.UnitPrice,
+        })
+    }
+    return products, nil
 }
