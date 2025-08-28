@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-
 	"github.com/islanpedro01/microservices/shipping/internal/adapters/grpc"
 	"github.com/islanpedro01/microservices/shipping/internal/application/core/api"
 

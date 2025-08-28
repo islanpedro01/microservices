@@ -17,7 +17,7 @@ services:
   payment:
     build:
       context: .
-      dockerfile: ./cmd/payment/Dockerfile
+      dockerfile: ./microservices/payment/Dockerfile
     restart: always
     ports:
       - "9000:9000"
@@ -28,7 +28,7 @@ services:
   order:
     build:
       context: .
-      dockerfile: ./cmd/order/Dockerfile
+      dockerfile: ./microservices/order/Dockerfile
     restart: always
     ports:
       - "9001:9001"
@@ -45,7 +45,7 @@ services:
   shipping:
     build:
       context: .
-      dockerfile: ./cmd/shipping/Dockerfile
+      dockerfile: ./microservices/shipping/Dockerfile
     restart: always
     ports:
       - "9002:9002"
